@@ -1,104 +1,446 @@
-/* CSS Variables for Theme Management */
+/* ================== */
+/* VARIABLES & THEME  */
+/* ================== */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --color-primary: #1976d2;
+  --color-accent: #ff4081;
+  --color-secondary: #424242;
+  --color-bg: #fff;
+  --color-bg-alt: #f7f7fb;
+  --color-border: #e9ecef;
+  --color-danger: #eb4d4b;
+  --color-gray: #aaa;
+  --color-text-main: #222;
+  --color-text-light: #555;
+  --color-text-invert: #fff;
 }
 
 [data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+  --color-bg: #23272f;
+  --color-bg-alt: #282c34;
+  --color-text-main: #f1f3f8;
+  --color-text-light: #dde5ee;
+  --color-border: #34384a;
 }
 
-.App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+body,
+.NotesApp {
+  background: var(--color-bg);
+  margin: 0;
+  color: var(--color-text-main);
+  font-family: 'Inter', 'Segoe UI', Arial, Helvetica, sans-serif;
+  transition: background 0.2s, color 0.2s;
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+button,
+input,
+textarea {
+  font-family: inherit;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
+/* ========================= */
+/*         APP HEADER        */
+/* ========================= */
+.AppHeader {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  height: 56px;
+  padding: 0 1rem;
+  justify-content: space-between;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 10;
+}
+
+.AppTitle {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 0.02em;
+}
+
+.HeaderActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-accent {
+  background: var(--color-accent);
+  color: var(--color-text-invert);
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px 0 rgb(0,0,0,0.04);
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
+  transition: background 0.18s;
+}
+.btn-accent:hover {
+  background: #e93672;
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
-}
-
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
+.btn-theme {
+  background: var(--color-bg-alt);
+  color: var(--color-accent);
   border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 600;
+  border-radius: 4px;
+  padding: 0 9px;
+  font-size: 1.15rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 32px;
+  transition: background 0.1s;
+}
+.btn-theme:hover {
+  background: var(--color-accent);
+  color: var(--color-bg);
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+/* ======================= */
+/*      MAIN LAYOUT        */
+/* ======================= */
+.MainLayout {
+  display: flex;
+  min-height: calc(100vh - 56px);
+  background: var(--color-bg);
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+/* ======================= */
+/*        SIDEBAR          */
+/* ======================= */
+.AppSidebar {
+  width: 320px;
+  background: var(--color-bg-alt);
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  min-width: 230px;
+  max-width: 390px;
+  height: calc(100vh - 56px);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.SidebarHeader {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.75rem 0.85rem 0.5rem 0.85rem;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-alt);
+  z-index: 5;
+}
+.SidebarSearch {
+  flex: 1;
+  padding: 0.45rem 0.8rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 5px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.16s;
+}
+.SidebarSearch:focus {
+  border-color: var(--color-primary);
+}
+.SidebarNewBtn {
+  background: var(--color-accent);
+  color: var(--color-text-invert);
+  border: none;
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  font-size: 1.3rem;
+  box-shadow: 0 2px 6px 0 rgb(0,0,0,0.03);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.SidebarNewBtn:hover {
+  background: #d91b66;
+}
+
+.NotesList {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 2rem;
+}
+.NotesListLoading,
+.NotesListEmpty {
+  color: var(--color-gray);
+  padding: 2.5rem .5rem 1.5rem .5rem;
+  text-align: center;
+  font-size: 1.06rem;
+}
+
+/* Sidebar Note Item */
+.SidebarNoteItem {
+  padding: 0.7rem 1.1rem 0.4rem 1.1rem;
+  border-left: 4px solid transparent;
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: background 0.14s, border 0.18s;
+  background: transparent;
+  min-height: 53px;
+  outline: none;
+  user-select: none;
+}
+.SidebarNoteItem:hover,
+.SidebarNoteItem:focus {
+  background: #f3f8fd;
+}
+.SidebarNoteItem.active {
+  background: #e3f1fd;
+}
+
+.ItemHeader {
+  display: flex;
+  gap: 0.33rem;
+  align-items: center;
+}
+.ItemTitle {
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+.ItemPin {
+  font-size: 1.02em;
+  vertical-align: middle;
+}
+
+.ItemMeta {
+  font-size: 0.97rem;
+  color: var(--color-text-light);
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+.ItemTags {
+  margin-left: 0.4em;
+}
+.ItemDate {
+  font-size: 0.93em;
+}
+.ItemPreview {
+  color: var(--color-gray);
+  font-size: 0.89em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0.83;
+}
+
+/* ======================= */
+/*      NOTE DETAIL        */
+/* ======================= */
+.NoteDetail {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 2.1rem 2rem 1.25rem 2rem;
+  background: var(--color-bg);
+  max-width: 100vw;
+  overflow-x: auto;
+}
+.NoteEmpty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.NoteEmptyMsg {
+  color: var(--color-gray);
+  font-size: 1.13rem;
+  text-align: center;
+}
+
+/* Main Note Editor Layout */
+.NoteDetailHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .6rem;
+}
+.NoteTitleInput {
+  flex: 1 1 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--color-primary);
+  font-size: 2.1rem;
+  font-weight: 700;
+  line-height: 2.25rem;
+  padding: .1rem;
+  margin-left: -2px;
+}
+.NoteTitleInput:focus {
+  background: #eef3f9;
+  outline: 2px solid var(--color-primary);
+}
+
+.NoteActionBtns {
+  display: flex;
+  gap: 0.32em;
+}
+.btn-icon {
+  background: transparent;
+  color: var(--color-primary);
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: color 0.13s;
+  padding: 0 4px;
+}
+.btn-icon:hover {
+  color: var(--color-accent);
+}
+.btn-icon:focus {
+  outline: none;
+  color: var(--color-accent);
+}
+
+.NoteMeta {
+  color: var(--color-gray);
+  margin-bottom: 1em;
+  font-size: .98rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.6em;
+  margin-top: 1.33em;
+}
+.NoteMetaDate {
+  color: var(--color-primary);
+  opacity: 0.74;
+}
+
+.Tag,
+.TagActive {
+  display: inline-flex;
+  align-items: center;
+  background: #ecf1fa;
+  color: var(--color-primary);
+  font-size: 0.88em;
+  border-radius: 4px;
+  margin: 0 0.15em;
+  padding: 0.09em 0.53em;
+  font-weight: 500;
+  margin-bottom: 1px;
+  border: 1px solid #dce1e7;
+}
+.TagActive {
+  background: var(--color-accent);
+  color: #fff;
+  border: 1px solid var(--color-accent);
+}
+.btn-tag-del {
+  background: none;
+  border: none;
+  color: #fff;
+  margin-left: 1px;
+  font-size: 1.1em;
+  cursor: pointer;
+  padding: 0 1px;
+}
+.NoteTagInput {
+  margin-left: 0.5em;
+  padding: 1.5px 7px;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  color: var(--color-primary);
+  font-size: 0.97em;
+  width: 5.5em;
+  transition: border 0.13s;
+}
+.NoteTagInput:focus {
+  border-color: var(--color-primary);
+}
+
+.NoteContentInput {
+  width: 100%;
+  min-height: 260px;
+  flex: 1;
+  resize: vertical;
+  background: #f7faff;
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text-main);
+  font-size: 1.13rem;
+  line-height: 1.7rem;
+  margin-top: 0.89em;
+  border-radius: 7px;
+  padding: 1rem;
+  outline: none;
+  transition: border 0.13s;
+}
+.NoteContentInput:focus {
+  border: 1.5px solid var(--color-primary);
+  background: #f0f8ff;
+}
+
+/* Overlay Info/Error */
+.OverlayInfo,
+.OverlayError {
+  position: fixed;
+  top: 15px;
+  right: 24px;
+  padding: 0.73em 1.6em;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 6px;
+  font-weight: 600;
+  z-index: 99;
+  font-size: 1.02em;
+  box-shadow: 0 6px 24px rgb(25 118 210 / 25%);
+}
+.OverlayError {
+  background: var(--color-danger);
+}
+
+
+/* ========================== */
+/*      RESPONSIVE            */
+/* ========================== */
+@media (max-width: 1200px) {
+  .NoteDetail { padding: 1.3rem 1rem 0.5rem 1rem }
+}
+@media (max-width: 900px) {
+  .MainLayout {
+    flex-direction: column;
   }
-  to {
-    transform: rotate(360deg);
+  .AppSidebar {
+    width: 100vw;
+    min-width: 0;
+    max-width: 100vw;
+    height: auto;
+    position: static;
+    border-bottom: 1.8px solid var(--color-border);
+    border-right: none;
+    flex: unset;
+  }
+  .NoteDetail {
+    padding: 1rem 3vw .7rem 3vw;
+    min-width: 0;
   }
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
+@media (max-width: 630px) {
+  .AppHeader {
+    flex-direction: column;
+    gap: 0.5em;
+    height: auto;
+    padding: 0.6em 0.5em;
+    align-items: flex-start;
+  }
+  .AppTitle {
+    font-size: 1.05rem;
+  }
+  .SidebarHeader {
+    padding: 0.52em 0.33em;
+    gap: 0.3em;
+  }
+  .AppSidebar {
+    padding-bottom: 0.7em;
   }
 }
